@@ -27,11 +27,8 @@ print("""
 +-+-+-+-+ +-+-+ +-+-+-+-+-+-+-+-+-+-+-+
 """)
 
-
-
 import sys
 import os
-import re
 from email.parser import BytesParser
 from email import policy
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QPushButton
@@ -93,7 +90,7 @@ def show_popup(file_path):
     if "EXPLOSION" in body_text:
         # If the keyword is found, display an explosion image
         explosion_label = QLabel()
-        explosion_pixmap = QPixmap("explosion.gif")
+        explosion_pixmap = QPixmap(os.path.join(os.getcwd(), "explosion.gif"))
         explosion_label.setPixmap(explosion_pixmap)
         layout.addWidget(explosion_label)
 
@@ -107,7 +104,7 @@ def show_popup(file_path):
 
 if __name__ == "__main__":
     file_path = input("Enter the file path: ")
-    file_path = rf"{file_path}"
+    file_path = os.path.join(os.getcwd(), file_path)  # Construct absolute path
     if os.path.isfile(file_path):
         show_popup(file_path)
     else:
